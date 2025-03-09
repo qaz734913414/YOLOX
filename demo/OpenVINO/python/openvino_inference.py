@@ -128,7 +128,7 @@ def main():
     # ---------------------------Step 8. Process output--------------------------------------------------------------------
     res = res[out_blob]
 
-    predictions = demo_postprocess(res, (h, w), p6=False)[0]
+    predictions = demo_postprocess(res, (h, w))[0]
 
     boxes = predictions[:, :4]
     scores = predictions[:, 4, None] * predictions[:, 5:]
@@ -148,7 +148,7 @@ def main():
                          conf=args.score_thr, class_names=COCO_CLASSES)
 
     mkdir(args.output_dir)
-    output_path = os.path.join(args.output_dir, args.input.split("/")[-1])
+    output_path = os.path.join(args.output_dir, os.path.basename(args.input))
     cv2.imwrite(output_path, origin_img)
 
 
